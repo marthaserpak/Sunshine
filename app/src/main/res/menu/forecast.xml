@@ -8,4 +8,10 @@
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_refresh"/>
 
+    <item
+        android:id="@+id/openMap"
+        android:title="@string/onTheMap"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_map"/>
+
 </menu>

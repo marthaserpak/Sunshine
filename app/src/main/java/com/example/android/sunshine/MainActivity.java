@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity
         implements ForecastAdapter.ForecastAdapterOnClickHandler {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private TextView mWeatherTextView;
     private TextView mErrorMessageDisplay;
     private ProgressBar mLoadingIndicator;
@@ -34,10 +37,36 @@ public class MainActivity extends AppCompatActivity
         MenuInflater menuInflater = getMenuInflater();
         /* Use the inflater's inflate method
         to inflate our menu layout to this menu */
-        menuInflater.inflate(R.menu.forecat, menu);
+        menuInflater.inflate(R.menu.forecast, menu);
         /* Return true so that the menu is displayed in the Toolbar */
         return true;
     }
+
+    /**
+     * This method uses the URI scheme for showing a location found on a
+     * map. This super-handy intent is detailed in the "Common Intents"
+     * page of Android's developer site:
+     *
+     * "http://developer.android.com/guide/components/intents-common.html#Maps"
+     *
+     * Hint: Hold Command on Mac or Control on Windows and click that link
+     * to automagically open the Common Intents page
+     */
+    private void openLocationInMap() {
+        String addressString = "1600 Ampitheatre Parkway, CA";
+        Uri geoLocation = Uri.parse("geo:0,0?q=" + addressString);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(geoLocation);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            Log.d(TAG, "Couldn't call " + geoLocation.toString()
+                    + ", no receiving apps installed!");
+        }
+    }
+
 
     /**
      * Override onOptionsItemSelected to handle clicks on the refresh button
@@ -49,6 +78,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.refresh) {
             mWeatherTextView.setText("");
             loadWeatherData();
+            return true;
+        }
+
+        if(id == R.id.openMap) {
+            openLocationInMap();
             return true;
         }
         return super.onOptionsItemSelected(item);
