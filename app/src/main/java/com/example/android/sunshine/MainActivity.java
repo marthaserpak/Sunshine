@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,7 +20,8 @@ import com.example.android.sunshine.Utilities.OpenWeatherJsonUtils;
 
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements ForecastAdapter.ForecastAdapterOnClickHandler {
 
     private TextView mWeatherTextView;
     private TextView mErrorMessageDisplay;
@@ -77,6 +79,15 @@ public class MainActivity extends AppCompatActivity {
         new FetchWeatherTask().execute(location);
     }
 
+    @Override
+    public void onClick(String weatherForToday) {
+
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(Intent.EXTRA_TEXT, weatherForToday);
+
+        startActivity(intent);
+    }
+
     /**
      * Create a class that extends AsyncTask to perform network requests
      */
@@ -104,12 +115,12 @@ public class MainActivity extends AppCompatActivity {
             URL weatherRequestsUrl = NetworkUtils.buildUrl(location);
 
             try {
-                String jsonweatherResponse = NetworkUtils
+                String jsonWeatherResponse = NetworkUtils
                         .getResponseFromHttpUrl(weatherRequestsUrl);
 
                 return OpenWeatherJsonUtils
                         .getSimpleWeatherStringsFromJson(MainActivity.this,
-                                jsonweatherResponse);
+                                jsonWeatherResponse);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -142,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 
     /**
      * This method will make the View for the weather data visible and
