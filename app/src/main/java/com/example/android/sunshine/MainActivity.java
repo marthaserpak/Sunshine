@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
         boolean shouldReverseLayout = false;
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, RecyclerView.VERTICAL,
-                shouldReverseLayout);
+                false);
         mRecyclerView.setLayoutManager(layoutManager);
 
         /*
