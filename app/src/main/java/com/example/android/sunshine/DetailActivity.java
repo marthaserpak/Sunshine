@@ -1,5 +1,6 @@
 package com.example.android.sunshine;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ShareCompat;
 
@@ -11,7 +12,7 @@ import android.widget.TextView;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private  static final String FORECAST_SHARE_HASHTAG = "sunshineApp";
+    private static final String FORECAST_SHARE_HASHTAG = "sunshineApp";
 
     private String mForecast;
     private TextView mWeatherDisplay;
@@ -25,8 +26,8 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if(intent != null) {
-            if(intent.hasExtra(Intent.EXTRA_TEXT)) {
+        if (intent != null) {
+            if (intent.hasExtra(Intent.EXTRA_TEXT)) {
                 mForecast = intent.getStringExtra(Intent.EXTRA_TEXT);
                 mWeatherDisplay.setText(mForecast);
             }
@@ -40,14 +41,14 @@ public class DetailActivity extends AppCompatActivity {
      *
      * @return The Intent to use to start our share.
      */
-    private Intent createShareForecastIntent(){
+    private Intent createShareForecastIntent() {
         Intent shareIntent = ShareCompat.IntentBuilder.from(this)
                 .setType("text/plain")
                 .setText(mForecast + FORECAST_SHARE_HASHTAG)
                 .getIntent();
         return shareIntent;
 
-        
+
     }
 
     @Override
@@ -58,4 +59,14 @@ public class DetailActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(DetailActivity.this,
+                    SettingsActivity.class);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

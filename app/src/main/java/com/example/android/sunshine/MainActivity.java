@@ -294,6 +294,12 @@ public class MainActivity extends AppCompatActivity
             openLocationInMap();
             return true;
         }
+
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this,
+                    SettingsActivity.class);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
