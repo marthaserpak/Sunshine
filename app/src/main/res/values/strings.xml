@@ -108,5 +108,6 @@
     <string name="onTheMap">Map</string>
     <string name="action_share">share</string>
 
+    <string name="action_settings">Settings</string>
 
 </resources>

@@ -34,9 +34,9 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     /**
-     * Uses the ShareCompat Intent builder to create our Forecast intent for sharing. We set the
-     * type of content that we are sharing (just regular text), the text itself, and we return the
-     * newly created Intent.
+     * Uses the ShareCompat Intent builder to create our Forecast intent for sharing.
+     * We set the type of content that we are sharing (just regular text),
+     * the text itself, and we return the newly created Intent.
      *
      * @return The Intent to use to start our share.
      */
@@ -46,6 +46,8 @@ public class DetailActivity extends AppCompatActivity {
                 .setText(mForecast + FORECAST_SHARE_HASHTAG)
                 .getIntent();
         return shareIntent;
+
+        
     }
 
     @Override
@@ -55,4 +57,5 @@ public class DetailActivity extends AppCompatActivity {
         menuItem.setIntent(createShareForecastIntent());
         return true;
     }
+
 }
