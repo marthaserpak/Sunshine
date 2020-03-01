@@ -1,4 +1,4 @@
-package com.example.android.sunshine.Utilities;
+package com.example.android.sunshine;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,8 +9,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
-import com.example.android.sunshine.R;
-
 
 public class SettingsFragment extends PreferenceFragmentCompat
         implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -18,7 +16,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
     public void setPreferenceSummary(Preference preferences,
                                      Object value) {
         String stringValue = value.toString();
-        String key = findPreference(preferences.toString()).getKey();
+        String key = preferences.getKey();
 
         if (preferences instanceof ListPreference) {
 
