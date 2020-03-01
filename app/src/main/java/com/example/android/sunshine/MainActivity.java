@@ -28,7 +28,7 @@ import com.example.android.sunshine.Utilities.OpenWeatherJsonUtils;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity
-        implements ForecastAdapter.ForecastAdapterOnClickHandler {
+        implements ForecastAdapter.ForecastAdapterOnClickHandler, LoaderManager.LoaderCallbacks<String[]> {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity
          * something to notify us of, it will do so through this callback.
          */
         LoaderManager.LoaderCallbacks<String[]> callback =
-                (LoaderManager.LoaderCallbacks<String[]>) MainActivity.this;
+                 MainActivity.this;
 
         /*
          * The second parameter of the initLoader method below is a Bundle. Optionally, you can
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity
          * created and (if the activity/fragment is currently started) starts the loader. Otherwise
          * the last created loader is re-used.
          */
-        getSupportLoaderManager().initLoader(loaderId, bundleForLoader, callback);
+        /*getSupportLoaderManager()*/LoaderManager.getInstance(this).initLoader(loaderId, bundleForLoader, callback);
 
         Log.d(TAG, "onCreate: registering preference changed listener");
     }
@@ -323,6 +323,11 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra(Intent.EXTRA_TEXT, weatherForToday);
 
         startActivity(intent);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 
     /**
